@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+import time  
 
 # Load the dataset
 X_train = pd.read_csv("X_train.csv")
@@ -16,7 +17,12 @@ y_test = y_test.values.ravel()
 
 # Modify SVM hyperparameters to reduce overfitting
 svm_model = SVC(C=0.01, kernel="rbf", gamma=10, max_iter=500, random_state=42)
-svm_model.fit(X_train, y_train)
+
+start_time = time.time()  
+svm_model.fit(X_train, y_train)  
+training_time = time.time() - start_time  
+
+print(f"SVM Training Time: {training_time:.4f} seconds")  
 
 # Make predictions
 y_pred = svm_model.predict(X_test)
