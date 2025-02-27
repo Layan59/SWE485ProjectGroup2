@@ -5,7 +5,7 @@ from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 import seaborn as sns  # For better visualizations
 import numpy as np
-import pandas as pd
+import time  
 
 # Load train and test datasets
 X_train = pd.read_csv("X_train.csv")
@@ -15,7 +15,12 @@ y_test = pd.read_csv("y_test.csv").values.ravel()
 
 # Initialize and train the Random Forest model
 rf_model = RandomForestClassifier(n_estimators=100, random_state=42)
-rf_model.fit(X_train, y_train)
+
+start_time = time.time()  
+rf_model.fit(X_train, y_train)  
+training_time = time.time() - start_time  
+
+print(f"Random Forest Training Time: {training_time:.4f} seconds")  
 
 # Make predictions
 y_pred = rf_model.predict(X_test)
