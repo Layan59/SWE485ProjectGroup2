@@ -4,44 +4,33 @@ from sklearn.cluster import DBSCAN
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import silhouette_score
 
-# Step 1: Load the dataset
-df = pd.read_csv("SWE485ProjectGroup2-main/cleaned_dataset.csv")  # Ensure the correct path
+# Load the dataset
+df = pd.read_csv("cleaned_dataset.csv")  # Make sure the path is correct
 
-# Step 2: Remove unnecessary columns
-if 'nan' in df.columns:
-    df = df.drop(columns=['nan'])  # Remove any stray "nan" column
+# Drop unnecessary columns if they exist
+df = df.drop(columns=[col for col in ['nan', 'Disease'] if col in df.columns], errors='ignore')
 
-if 'Disease' in df.columns:
-    df = df.drop(columns=['Disease'])  # Remove class label (target)
-
-# Step 3: Standardize Data
+# Standardize the data for better clustering
 scaler = StandardScaler()
-df_scaled = scaler.fit_transform(df)  # Keep as NumPy array
+df_scaled = scaler.fit_transform(df)
 
-# Step 4: Apply DBSCAN
-dbscan = DBSCAN(eps= 0.5, min_samples=10)  # Adjust 'eps' and 'min_samples' based on results
-clusters = dbscan.fit_predict(df_scaled)
+# Apply DBSCAN with modified parameters to improve clustering
+dbscan = DBSCAN(eps=1.2, min_samples=5)
+labels = dbscan.fit_predict(df_scaled)
 
-# Step 5: Assign Cluster Labels to DataFrame
-df['Cluster'] = clusters
+# Add cluster labels to the DataFrame
+df['Cluster'] = labels
 
-# Step 6: Evaluate DBSCAN Performance
-num_clusters = len(set(clusters)) - (1 if -1 in clusters else 0)  # Exclude noise (-1)
-num_noise_points = list(clusters).count(-1)  # Count noise points
+# Evaluate the clustering result
+num_clusters = len(set(labels)) - (1 if -1 in labels else 0)
+noise = list(labels).count(-1)
+silhouette = silhouette_score(df_scaled, labels) if num_clusters > 1 else "N/A"
 
-# Compute silhouette score only if there are more than 1 cluster (excluding noise)
-if num_clusters > 1:
-    silhouette = silhouette_score(df_scaled, clusters, metric='euclidean')
-else:
-    silhouette = "N/A (Only one cluster found)"
-
-# Print Results
-print(f"Number of clusters found (excluding noise): {num_clusters}")
-print(f"Number of noise points: {num_noise_points}")
+# Print evaluation results
+print(f"Number of clusters: {num_clusters}")
+print(f"Noise points: {noise}")
 print(f"Silhouette Score: {silhouette}")
-print(df['Cluster'].value_counts())  # Show cluster distribution
+print(df['Cluster'].value_counts())
 
-# Step 7: Save clustered data
-df.to_csv("dbscan_clustered_diseases.csv", index=False)
-
-
+# Save the result to a CSV file
+df.to_csv("dbscan_tuned_result.csv", index=False)

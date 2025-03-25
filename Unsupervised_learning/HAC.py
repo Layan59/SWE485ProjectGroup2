@@ -8,7 +8,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import silhouette_score
 
 # Load dataset
-df = pd.read_csv("SWE485ProjectGroup2-main/cleaned_dataset.csv")
+df = pd.read_csv("cleaned_dataset.csv")
 
 # Drop unnecessary columns
 if 'nan' in df.columns:

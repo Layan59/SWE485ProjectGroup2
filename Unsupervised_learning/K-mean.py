@@ -6,7 +6,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import silhouette_score
 
 # Step 1: Load the dataset
-df = pd.read_csv("SWE485ProjectGroup2-main/cleaned_dataset.csv")  # Update path if needed
+df = pd.read_csv("cleaned_dataset.csv")  # Update path if needed
 
 # Step 2: Remove unnecessary columns
 df = df.dropna(axis=1, how='all')  # Remove any empty columns
