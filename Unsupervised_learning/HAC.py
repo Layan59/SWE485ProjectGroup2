@@ -1,51 +1,38 @@
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-from scipy.cluster.hierarchy import dendrogram, linkage
 from sklearn.cluster import AgglomerativeClustering
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import silhouette_score
 
 # Load dataset
 df = pd.read_csv("cleaned_dataset.csv")
+df = df.drop(columns=[col for col in ['nan', 'Disease'] if col in df.columns], errors='ignore')
 
-# Drop unnecessary columns
-if 'nan' in df.columns:
-    df = df.drop(columns=['nan'])
-
-if 'Disease' in df.columns:
-    df = df.drop(columns=['Disease'])
-
-# Standardize the dataset
+# Standardize
 scaler = StandardScaler()
 df_scaled = scaler.fit_transform(df)
 
-# Step 1: Plot Dendrogram to determine cluster count
-plt.figure(figsize=(12, 6))
-Z = linkage(df_scaled, method='ward')  # Ward method minimizes variance
-dendrogram(Z, truncate_mode='level', p=10)  # Show first 10 cluster merges
-plt.title("Dendrogram for HAC")
-plt.xlabel("Data Points")
-plt.ylabel("Distance")
-plt.show()
+# Try more cluster values
+best_score = -1
+best_k = 0
+best_labels = None
 
-# Step 2: Perform Hierarchical Clustering
-num_clusters = 5  # Adjust this based on dendrogram observation
-hac = AgglomerativeClustering(n_clusters=num_clusters, linkage='ward')
-cluster_labels = hac.fit_predict(df_scaled)
+for k in range(2, 8): 
+    hac = AgglomerativeClustering(n_clusters=k, linkage='ward')
+    labels = hac.fit_predict(df_scaled)
+    score = silhouette_score(df_scaled, labels)
+    
+    if score > best_score:
+        best_score = score
+        best_k = k
+        best_labels = labels
 
-# Assign clusters to the dataframe
-df["Cluster"] = cluster_labels
+# Assign best labels
+df["Cluster"] = best_labels
+df.to_csv("HAC_tuned_result.csv", index=False)
 
-# Step 3: Evaluate the Clustering
-silhouette_avg = silhouette_score(df_scaled, cluster_labels)
-print(f"Silhouette Score: {silhouette_avg:.4f}")
-
-# Step 4: Display Cluster Distribution
-cluster_counts = df["Cluster"].value_counts()
-print("Cluster Distribution:\n", cluster_counts)
-
-# Save the clustered data
-df.to_csv("clustered_diseases_HAC.csv", index=False)
-
+# Output
+print(f"Best number of clusters: {best_k}")
+print(f"Best Silhouette Score: {best_score:.4f}")
+print("Cluster distribution:")
+print(df["Cluster"].value_counts())
