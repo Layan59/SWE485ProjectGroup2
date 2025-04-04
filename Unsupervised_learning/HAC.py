@@ -3,6 +3,8 @@ import numpy as np
 from sklearn.cluster import AgglomerativeClustering
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import silhouette_score
+from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
 
 # Load dataset
 df = pd.read_csv("cleaned_dataset.csv")
@@ -36,3 +38,16 @@ print(f"Best number of clusters: {best_k}")
 print(f"Best Silhouette Score: {best_score:.4f}")
 print("Cluster distribution:")
 print(df["Cluster"].value_counts())
+
+# Step: Visualize HAC Clusters using PCA
+pca = PCA(n_components=2)
+data_2d = pca.fit_transform(df_scaled)
+
+plt.figure(figsize=(8, 6))
+plt.scatter(data_2d[:, 0], data_2d[:, 1], c=best_labels, cmap='Set1', s=50)
+plt.title(f'HAC Clustering Visualization (k={best_k})')
+plt.xlabel('PCA Component 1')
+plt.ylabel('PCA Component 2')
+plt.colorbar(label='Cluster')
+plt.grid(True)
+plt.show()
