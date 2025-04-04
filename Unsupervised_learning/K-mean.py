@@ -54,3 +54,17 @@ print(f"Silhouette Score: {sil_score:.4f}")
 # Step 10: Print results
 print(df.head())
 print(df['Cluster'].value_counts())  # Check cluster distribution
+# Step 11: Visualize Clusters using PCA
+from sklearn.decomposition import PCA
+
+pca = PCA(n_components=2)
+data_2d = pca.fit_transform(df_scaled)
+
+plt.figure(figsize=(8, 6))
+plt.scatter(data_2d[:, 0], data_2d[:, 1], c=df['Cluster'], cmap='Set2', s=50)
+plt.title(f'K-Means Clustering Visualization (k={k_optimal})')
+plt.xlabel('PCA Component 1')
+plt.ylabel('PCA Component 2')
+plt.colorbar(label='Cluster')
+plt.grid(True)
+plt.show()
