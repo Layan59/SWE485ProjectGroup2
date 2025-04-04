@@ -26,7 +26,7 @@ inertia = []
 K_range = range(2, 11)
 
 for k in K_range:
-    kmeans = KMeans(n_clusters=k, random_state=42, n_init='auto')
+    kmeans = KMeans(n_clusters=k, random_state=42, n_init=10)
     kmeans.fit(df_scaled)
     inertia.append(kmeans.inertia_)
 
@@ -41,7 +41,7 @@ plt.show()
 k_optimal = 5  # Replace with the observed elbow point
 
 # Step 7: Apply K-Means with the chosen K
-kmeans = KMeans(n_clusters=k_optimal, random_state=42, n_init='auto')
+kmeans = KMeans(n_clusters=k_optimal, random_state=42, n_init=10)
 df['Cluster'] = kmeans.fit_predict(df_scaled)
 
 # Step 8: Save clustered data
