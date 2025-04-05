@@ -27,6 +27,10 @@ My Role in the Project
 [HUTOON]
 I worked on describing the goal of the dataset and its source. This included explaining the purpose of the data and where it was collected from.
 
+[Abrar]
+- Handled the preprocessing techniques for the selected dataset.
+- Applied data cleaning steps
+
 
 🔹 Phase 2: Supervised Learning
 
@@ -44,6 +48,9 @@ I worked on describing the goal of the dataset and its source. This included exp
 
 [HUTOON]
  I was responsible for testing supervised learning algorithms and comparing their results to help determine which models worked best.
+
+ [Abrar]
+ Implemented one of the supervised learning algorithms used in the project.
 
 
 
@@ -65,3 +72,8 @@ I worked on describing the goal of the dataset and its source. This included exp
 
 [HUTOON]
 I handled the visualizations for clustering algorithms. I created clear visual representations for K-Means, DBSCAN, and HAC using PCA to show how the data was grouped.
+
+[Abrar]
+
+Designed and implemented the unsupervised learning algorithm (clustering) for the project.
+• Preprocessed the dataset for clustering (e.g., removing class labels).
