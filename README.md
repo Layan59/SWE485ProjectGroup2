@@ -28,9 +28,17 @@ My Role in the Project
 I worked on describing the goal of the dataset and its source. This included explaining the purpose of the data and where it was collected from.
 
 [Abrar]
-- Handled the preprocessing techniques for the selected dataset.
-- Applied data cleaning steps
+• Handled the preprocessing techniques for the selected dataset.
+• Applied data cleaning steps
 
+[LAYAN]
+[LAYAN]
+• Created the GitHub repository for the project and organized its folder structure to ensure clear collaboration.
+• Added the main dataset folder and uploaded the cleaned version used by all team members.
+• Wrote the introductory section in the Jupyter Notebook that includes:
+- The project motivation
+- Students’ names
+- A general overview of the project and its goal
 
 🔹 Phase 2: Supervised Learning
 
@@ -52,7 +60,11 @@ I worked on describing the goal of the dataset and its source. This included exp
  [Abrar]
  Implemented one of the supervised learning algorithms used in the project.
 
-
+ [LAYAN]
+• Implemented the SVM (Support Vector Machine) algorithm using the training dataset and fine-tuned hyperparameters to improve model accuracy.
+• Visualized performance using the confusion matrix and evaluated results using metrics like accuracy and classification report.
+• Participated in modifying the SVM model to reduce overfitting by adjusting C, kernel, gamma, and max_iter.
+• Collaborated with the team to compare SVM with Random Forest and contributed to the decision-making on which algorithm performs better.
 
 🔹 Phase 3: Unsupervised Learning
 
@@ -77,3 +89,10 @@ I handled the visualizations for clustering algorithms. I created clear visual r
 
 Designed and implemented the unsupervised learning algorithm (clustering) for the project.
 • Preprocessed the dataset for clustering (e.g., removing class labels).
+
+[LAYAN]
+• Worked on enhancing the DBSCAN algorithm by adjusting the eps and min_samples parameters to improve clustering performance.
+• Ran several experiments to reduce the number of clusters while keeping a reasonable Silhouette Score.
+• Tested different configurations and helped the team decide on the most logical DBSCAN setup for interpretation.
+• Supported in evaluating and comparing results from K-Means, HAC, and DBSCAN, and summarized findings to support model selection.
+
