@@ -2,6 +2,9 @@ import streamlit as st
 import pandas as pd
 import joblib
 from gpt_response import get_gpt_response
+from predict_disease import predict_disease  # Import the predict_disease function
+
+
 
 # Load model and training columns
 svm_model = joblib.load('svm_model.pkl')
@@ -20,15 +23,14 @@ if st.button("Predict Disease"):
     if not selected_symptoms:
         st.warning("Please select at least one symptom.")
     else:
-        # Prepare input data
-        input_data = [1 if symptom in selected_symptoms else 0 for symptom in all_symptoms]
-        input_df = pd.DataFrame([input_data], columns=all_symptoms)
-
-        # Predict
-        predicted_disease = svm_model.predict(input_df)[0]
+        # Call the predict_disease function to get the disease prediction and GPT response
+        predicted_disease, gpt_response = predict_disease(selected_symptoms)
+        
+        # Display predicted disease
         st.success(f"🧬 Predicted Disease: **{predicted_disease}**")
 
-        # Get GPT advice
-        gpt_response = get_gpt_response(predicted_disease, template_type="friendly")
+        # Display GPT response
         st.markdown("### 💡 GPT Medical Advice")
         st.markdown(gpt_response)
+
+
