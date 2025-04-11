@@ -3,13 +3,11 @@ import openai
 from dotenv import load_dotenv
 
 load_dotenv()
-
-# Get your OpenAI API key from environment or paste directly here (for testing only)
 api_key = os.getenv("OPENAI_API_KEY")
 
 client = openai.OpenAI(api_key=api_key)
 
-predicted_disease = "Diabetes"
+predicted_disease = "flu"
 
 prompt = f"""
 Give a short and clear medical summary for the disease: {predicted_disease}.
