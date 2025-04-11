@@ -43,3 +43,8 @@ plt.ylabel("Actual Label")
 plt.title("Modified SVM Confusion Matrix")
 plt.show()
 
+import joblib
+
+# After training your SVM model
+joblib.dump(svm_model, 'svm_model.pkl')
+print("Model saved successfully!")
