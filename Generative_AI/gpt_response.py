@@ -1,18 +1,16 @@
 import os
 import openai
+from dotenv import load_dotenv
 
-# ------------------ GPT Response Generator ------------------
-# This script sends the predicted disease to GPT and returns a formatted response
-# Make sure OPENAI_API_KEY is set in the GitHub Secrets or environment variables
-# الكي بعطيه ليان تحطه في rep 
-# Get the API key securely (from GitHub Secrets or .env)
+load_dotenv()
+
+# Get your OpenAI API key from environment or paste directly here (for testing only)
 api_key = os.getenv("OPENAI_API_KEY")
-openai.api_key = api_key
 
-# Example: predicted disease from ML model
-predicted_disease = "Diabetes" # ترا ذا توقع كذا بس لان مابعد انربط المودل حقنا اللي يتوقع عشان يرسل ل gpt
+client = openai.OpenAI(api_key=api_key)
 
-# Prompt for GPT to generate description, treatment, and prevention
+predicted_disease = "Diabetes"
+
 prompt = f"""
 Give a short and clear medical summary for the disease: {predicted_disease}.
 Include:
@@ -21,8 +19,7 @@ Include:
 3. Prevention
 """
 
-# Call GPT API
-response = openai.ChatCompletion.create(
+response = client.chat.completions.create(
     model="gpt-3.5-turbo",
     messages=[
         {"role": "user", "content": prompt}
@@ -30,10 +27,9 @@ response = openai.ChatCompletion.create(
     temperature=0.7
 )
 
-# Get GPT response
-reply = response['choices'][0]['message']['content']
+reply = response.choices[0].message.content
 
-# Split GPT response by newlines to extract the 3 sections
+# Split the response
 lines = reply.split('\n')
 description = treatment = prevention = ""
 for line in lines:
@@ -44,7 +40,7 @@ for line in lines:
     elif line.lower().startswith("3. prevention"):
         prevention = line.split(':', 1)[-1].strip()
 
-# Template 1 – Formal
+# Formal Template
 formal_response = f"""
 **Diagnosis:** {predicted_disease}
 
@@ -58,7 +54,7 @@ formal_response = f"""
 {prevention}
 """
 
-# Template 2 – Friendly
+# Friendly Template
 friendly_response = f"""
 Looks like you're feeling some symptoms. Based on what you entered, you might have **{predicted_disease}**!
 
@@ -72,7 +68,6 @@ Stay safe!
 {prevention}
 """
 
-# Print both response templates
 print("\n===== FORMAL TEMPLATE =====\n")
 print(formal_response)
 
