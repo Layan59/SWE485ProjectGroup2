@@ -32,7 +32,6 @@ I worked on describing the goal of the dataset and its source. This included exp
 • Applied data cleaning steps
 
 [LAYAN]
-[LAYAN]
 • Created the GitHub repository for the project and organized its folder structure to ensure clear collaboration.
 • Added the main dataset folder and uploaded the cleaned version used by all team members.
 • Wrote the introductory section in the Jupyter Notebook that includes:
@@ -96,3 +95,31 @@ Designed and implemented the unsupervised learning algorithm (clustering) for th
 • Tested different configurations and helped the team decide on the most logical DBSCAN setup for interpretation.
 • Supported in evaluating and comparing results from K-Means, HAC, and DBSCAN, and summarized findings to support model selection.
 
+🔹 Phase 4: Integrating Generative AI
+
+[BODOR]
+
+Handles the user interface where the user enters symptoms.
+Prepares the symptoms as input data for the prediction model.
+
+[WAAD]
+
+Documents the entire Phase 4 work.
+Compares the outputs of both response templates and justifies which one is more effective.
+
+[HUTOON]
+
+Created the Generative_AI folder.
+Added the gpt_response_template.md file with two response formats (Formal and Friendly).
+Wrote the gpt_response.py script to connect the predicted disease to GPT using the OpenAI API.
+Prepared the code to use the API key from GitHub Secrets.
+Added a placeholder disease name until the model is connected.
+
+[Abrar]
+
+Uses the trained machine learning model to predict the disease from the user input.
+Passes the predicted disease name to the GPT response script.
+
+[LAYAN]
+
+Adds the API key to GitHub Secrets and completes the integration with GPT.
