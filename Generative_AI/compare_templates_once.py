@@ -94,3 +94,34 @@ print("===== FORMAL TEMPLATE =====\n")
 print(formal_output)
 print("\n===== FRIENDLY TEMPLATE =====\n")
 print(friendly_output)
+
+
+# Ask GPT to generate a comparison table between the two templates
+table_prompt = f"""
+Compare the following two medical summaries for the disease: {predicted_disease}.
+One is written in a formal style, and the other is in a friendly style.
+
+Please create a comparison table that covers:
+- Tone
+- Readability
+- Emotion
+- Audience Suitability
+
+Use markdown table format only.
+
+Formal Template:
+{formal_output}
+
+Friendly Template:
+{friendly_output}
+"""
+
+table_response = client.chat.completions.create(
+    model="gpt-3.5-turbo",
+    messages=[{"role": "user", "content": table_prompt}],
+    temperature=0.7
+)
+
+# Print the GPT-generated comparison table
+print("\n===== GPT-GENERATED COMPARISON TABLE =====\n")
+print(table_response.choices[0].message.content)
