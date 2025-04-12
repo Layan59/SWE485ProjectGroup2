@@ -2,7 +2,7 @@ import pandas as pd
 import joblib
 from gpt_response import get_gpt_response
 
-# Load the saved model
+# Load the SVM model
 svm_model = joblib.load('svm_model.pkl')
 
 # Load training data (just for getting the symptoms list)
