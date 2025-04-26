@@ -7,7 +7,7 @@ from predict_disease import predict_disease  # Import the predict_disease functi
 
 
 # Load model and training columns
-svm_model = joblib.load('svm_model.pkl')
+random_forest_model = joblib.load('random_forest_model.pkl')
 X_train = pd.read_csv("X_train.csv")
 all_symptoms = X_train.columns.tolist()
 
